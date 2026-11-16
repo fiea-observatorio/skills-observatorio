@@ -13,10 +13,12 @@ Você precisa ter acesso de leitura a este repositório (ele é privado).
 ### Opção 1 — `npx skills` (recomendado, precisa de Node)
 
 ```bash
-npx skills add fiea-observatorio/skills-observatorio
+npx skills add fiea-observatorio/skills-observatorio -g -a claude-code -a codex -a cursor -a github-copilot -a grok
 ```
 
-Pergunta quais skills e quais agentes; use `-g` para instalar no usuário (global) e `-y` para não perguntar.
+Instala no usuário (`-g`) e só nesses 5 agentes: Claude Code, Codex, Cursor, GitHub Copilot e Grok.
+Tire os `-a` que você não usa (ex.: só `-a claude-code -a codex`). Outros IDs: `gemini-cli`, `windsurf`, `opencode`.
+Sem `-a`, o CLI mostra a lista completa (~55 agentes) para escolher. Adicione `-y` para não perguntar nada.
 Atualizar depois: `npx skills update`.
 
 ### Opção 2 — script (só precisa de git)
