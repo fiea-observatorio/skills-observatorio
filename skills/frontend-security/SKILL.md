@@ -2,7 +2,7 @@
 name: frontend-security
 description: Aplicar diretrizes de segurança ao desenvolver, revisar ou validar código Front-end; consolidar documentos da Segurança da Informação em controles rastreáveis. Usar para segurança de interfaces, autenticação no navegador, dados, integrações e dependências. Distinguir requisitos internos comprovados de recomendações públicas.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   reference_status: "internal-project-references-analyzed"
 ---
 
@@ -10,7 +10,7 @@ metadata:
 
 ## Base e limites
 
-Leia primeiro [fontes e rastreabilidade](references/fontes.md). A base principal são os cinco documentos internos de Matrículas SESI, Sindicato API, Íris e Radar Front-end/API indicados pelo solicitante. São referências técnicas dos projetos; não alegue aprovação corporativa independente ou acesso aos relatórios originais de pentest citados nelas. OWASP complementa lacunas, sem substituir silenciosamente os requisitos internos.
+Leia primeiro [fontes e rastreabilidade](references/fontes.md). A base principal são os cinco documentos internos de Matrículas SESI, Sindicato API, Íris e Radar Front-end/API indicados pelo solicitante. São referências técnicas dos projetos; não alegue aprovação corporativa independente ou acesso aos relatórios originais de pentest citados nelas. Também integra a base o ciclo de avaliação de segurança do Painel de Matrículas SENAI (SEN: relatório de 04/11/2026, reteste e respostas): seus achados foram demonstrados em produção e viram casos de teste obrigatórios quando a superfície revisada for equivalente (payload com metadados internos, identificador pessoal no payload, ação cara sem limite, CSP sem `script-src`, erros de sessão distintos, health/banners reveladores). OWASP complementa lacunas, sem substituir silenciosamente os requisitos internos.
 
 Use [diretrizes e verificações](references/diretrizes.md) como catálogo e leia [perfis, exceções e conflitos](references/perfis-e-conflitos.md) para escolher as regras do projeto. Leia os controles pertinentes à superfície alterada; registre os demais como fora do escopo ou não aplicáveis, com justificativa. Em outro projeto, use os padrões comuns como proposta de engenharia, sem transportar papéis, rotas, domínios, prazos ou exceções automaticamente. Se o projeto não estiver identificável e a escolha afetar um requisito, peça esse esclarecimento e avance nas verificações comuns.
 

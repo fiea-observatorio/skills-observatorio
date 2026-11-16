@@ -1,6 +1,6 @@
 # Perfis, exceções e conflitos
 
-Leia com o [catálogo](diretrizes.md). IDs MAT/SIN/IRI/RFE/RAPI remetem aos documentos em [fontes.md](fontes.md). Exceções são registros da fonte, sem renovação ou ampliação automática por esta skill.
+Leia com o [catálogo](diretrizes.md). IDs MAT/SIN/IRI/RFE/RAPI/SEN remetem aos documentos em [fontes.md](fontes.md). Exceções são registros da fonte, sem renovação ou ampliação automática por esta skill.
 
 ## Matrículas SESI
 
@@ -38,6 +38,28 @@ Leia com o [catálogo](diretrizes.md). IDs MAT/SIN/IRI/RFE/RAPI remetem aos docu
 - **URLs:** allowlist de hosts para imagens/embeds. Evidências/referências admitem fontes públicas arbitrárias; validar HTTPS, ausência de credenciais, porta 443 e endereço público. Não exigir a mesma allowlist de conteúdo carregado para citações. A API não busca as URLs de evidência; se passar a buscá-las, reavaliar SSRF e contrato.
 - API: armazenamento compartilhado de limite entre processos; IP só de cadeia/cabeçalho cuja sobrescrita pela borda seja comprovada. Não copiar CF-Connecting-IP nem quantidade de saltos sem conhecer a topologia. JWT identifica requisição autenticada; anônimas usam IP efetivo.
 - Catálogo público: 120 requisições/minuto com 429/Retry-After, conforme fonte. Não copiar esse orçamento para login ou outro sistema. Diagnóstico temporário de headers contém IP e deve ser desligado após a análise.
+
+## Matrículas SENAI (Painel de Acompanhamento)
+
+Produto distinto de Matrículas SESI: não transportar papéis, telas ou exceções de um para o outro. Arquitetura avaliada: SPA React/Vite servida por nginx, API Express no mesmo host, login iDigital (OIDC com PKCE, JWT RS256), cálculo dos indicadores no navegador a partir da base completa entregue pela API. O teste confirmou como pontos fortes: transporte HTTPS com redirecionamento, CORS sem refletir origem estranha, rejeição de `alg: none` e de confusão de algoritmo.
+
+| Achado SEN | Controle | Relatório 04/11 | Reteste 06/11 | Resposta 10/11 (não retestada) |
+| --- | --- | --- | --- | --- |
+| #01 Infraestrutura interna no campo `fonte` | FE-16 | Média, aberto | Parcial: ainda citava código de relatório BI | Corrigido segundo o desenvolvimento |
+| #02 RA de alunos no payload | FE-02 | Baixa, aberto | Corrigido: pseudônimo HMAC de 16 caracteres | Corrigido |
+| #03 Recarga de dados por qualquer usuário, sem limite | FE-05/FE-06 | Baixa, aberto | Média, aberto: dois POST seguidos com 200 | Corrigido: 200, 429, 429 com Retry-After |
+| #04 CSP sem `default-src`/`script-src` | FE-08 | Baixa, aberto | Corrigido; `style-src 'unsafe-inline'` residual | Corrigido |
+| #05 Receita/custo/margem para toda sessão | FE-02/FE-05 | Informativo | Aberto | Risco aceito por decisão do cliente |
+| #06 Erros distinguem motivo da recusa de sessão | FE-13 | Informativo | Corrigido | Corrigido |
+| #07 Sem `Cache-Control: no-store` | FE-02 | Informativo | Corrigido | Corrigido |
+| #08 Health expõe modo de autenticação | FE-16 | Informativo | Corrigido | Corrigido |
+| #09 Fingerprint (`Server: nginx`, ETag Express) | FE-16 | Informativo | Parcial | Corrigido no header; bibliotecas do bundle como residual |
+
+- **Estado:** a resposta de 10/11/2026 declara as correções publicadas em homologação e produção, mas não há reteste posterior entre as fontes. Tratar #01, #03 e #09 como **corrigido segundo o desenvolvimento, não verificado** até novo reteste ou verificação própria na resposta efetiva.
+- **#05 risco aceito:** a área dona decidiu que receita, custo, resultado e margem ficam visíveis a qualquer sessão iDigital da empresa. A API já tem controle por lista de e-mails/domínios ativável sem implantação. Registrar como risco aceito; não declarar FE-05 atendido para esses campos nem reutilizar a decisão em outro painel.
+- **#02 residual de desenho:** pseudônimo estável permite correlacionar o mesmo aluno entre turmas por qualquer sessão; aceitável para a contagem distinta, mas não reutilizar o pseudônimo fora do painel nem expor a chave HMAC. O campo continua chamado `ra`; renomear numa próxima versão.
+- **Residuais informativos:** `style-src 'unsafe-inline'` (estilos calculados do React e html2canvas) e identificação de bibliotecas do bundle (React, SheetJS, html2canvas).
+- Não reproduzir em código, testes ou documentos os IPs, instâncias, bancos, tabelas ou URL de produção citados nos relatórios.
 
 ## Itens excluídos da implementação automática Front-end
 
