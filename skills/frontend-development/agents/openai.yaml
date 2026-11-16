@@ -1,0 +1,4 @@
+interface:
+  display_name: "Desenvolvimento Front-end"
+  short_description: "Padrões da equipe, UX, evals e deploy para Harbor"
+  default_prompt: "Use $frontend-development para implementar o Front-end no padrão da equipe, avaliar UX e preparar o deploy.ps1 adaptado ao sistema."

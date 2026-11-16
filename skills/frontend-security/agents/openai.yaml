@@ -1,0 +1,4 @@
+interface:
+  display_name: "Segurança Front-end"
+  short_description: "Diretrizes de segurança com fontes e verificações"
+  default_prompt: "Use $frontend-security para revisar a segurança do código Front-end no escopo indicado, relacionando controles, fontes, evidências e pendências."
