@@ -2,7 +2,7 @@
 
 | Skill | Para quê |
 |---|---|
-| `frontend-development` | Padrão da equipe (Next.js, TypeScript, Tailwind, Mantine), UX/evals e `deploy.ps1` para Docker/Harbor |
+| `frontend-development` | Padrão da equipe (Next.js, TypeScript, Tailwind, Mantine), fluxo Spec-Driven (SPEC → BUILD → VALIDATE → DEPLOY), UX/evals e `deploy.ps1` para Docker/Harbor |
 | `frontend-security` | Diretrizes de segurança Front-end com fontes internas e verificações |
 
 Funcionam no **Codex** (`~/.codex/skills`) e no **Claude Code** (`~/.claude/skills`).

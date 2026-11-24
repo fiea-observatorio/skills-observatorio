@@ -2,9 +2,12 @@
 name: frontend-development
 description: Desenvolver e revisar Front-end no padrão da equipe com Next.js, TypeScript, Tailwind e Mantine; avaliar UX/acessibilidade com referência ao Impeccable e preparar deploy.ps1 para Docker/Harbor. Usar em novos sistemas Front-end, features, revisões de interface e preparação de publicação.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 # Desenvolvimento Front-end da equipe
+
+## Spec-Driven Development Workflow
+Todo desenvolvimento segue **SPEC → BUILD → VALIDATE → DEPLOY**, com specs em `/specs` como fonte da verdade (CONTEXT, REQUIREMENTS, DESIGN, TECHNICAL, IMPLEMENTATION, METRICS, VALIDATION, DEPLOYMENT, OPEN-ISSUES). Leia [spec-driven.md](references/spec-driven.md): consulte as specs antes de alterar código, atualize a spec correspondente (decisão e justificativa) a cada mudança relevante e não considere a entrega concluída sem cumprir `VALIDATION.spec.md`.
 
 ## Contexto e fontes
 Leia [padrões da equipe](references/padroes-equipe.md). Identifique o projeto, sua versão de Next/React, gerenciador de pacotes, contratos, design system e instruções locais. Preserve convenções existentes quando o pedido não incluir migração. Antes de qualquer código Next.js, leia os guias pertinentes em node_modules/next/dist/docs/ resolvidos a partir do pacote. Não copiar configuração legada do guia de 2025 sem conferir compatibilidade.
@@ -12,7 +15,7 @@ Leia [padrões da equipe](references/padroes-equipe.md). Identifique o projeto, 
 Use [UX e evals](references/ux-evals.md) para criação/revisão de interfaces e [deploy](references/deploy.md) quando criar um sistema ou preparar sua entrega. Integre a skill companheira `$frontend-security` quando disponível para regras de segurança; se ela não estiver instalada, consulte a documentação de segurança do próprio projeto e declare o limite, sem bloquear trabalho independente.
 
 ## Desenvolver
-1. Identifique a tarefa principal do usuário, dados, permissões, estados e critérios de aceite. Aproveite README, specs, PRODUCT.md e DESIGN.md existentes; peça apenas informação que não possa inferir e mude a solução.
+1. Identifique a tarefa principal do usuário, dados, permissões, estados e critérios de aceite. Leia `/specs` quando existir. Aproveite README, specs, PRODUCT.md e DESIGN.md existentes; peça apenas informação que não possa inferir e mude a solução.
 2. Para novo Front-end, adote Next.js/React/TypeScript, App Router, src/, alias @/*, Tailwind e Mantine com provider/tema compatíveis. Use o comando da referência e confirme opções da versão utilizada. Não recrie uma aplicação existente com create-next-app.
 3. Organize componentes PascalCase, hooks, contexts, utils, services e types. Tipar fronteiras e validar dados externos; evitar any. Componentes funcionais; mover lógica pesada para hooks/utils e manter comunicação privada no servidor/BFF.
 4. Tailwind é a base visual; Mantine cobre componentes complexos. CSS por componente é permitido quando necessário; index.css é global e não isola classes. Preferir .module.css para isolamento verdadeiro, respeitando o projeto. Reutilizar tokens e componentes. Não redesenhar a marca para satisfazer um detector estético.
